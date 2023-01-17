@@ -6,6 +6,8 @@ extends KinematicBody2D
 # var b = "text"
 var direction = Vector2()
 var speed = 4
+
+var fireBall = preload("res://Instantiables/FireBall.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -37,6 +39,12 @@ func _process(delta):
 		get_child(0).flip_h = false
 	elif self.position.x > get_global_mouse_position().x:
 		get_child(0).flip_h = true
+		
+	if Input.is_action_just_pressed("Shoot"):
+		var newFireball = fireBall.instance()
+		newFireball.global_position = position
+		get_parent().add_child(newFireball)
+		
 	
 	
 	move_and_collide(direction)
